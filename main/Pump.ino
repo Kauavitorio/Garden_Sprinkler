@@ -12,12 +12,9 @@ void initPump(){
 }
 
 void forcePump(){
-
+  Serial.println(" -------Water On ------- ");
   digitalWrite(PUMP, LOW);
-  delay(1000);
+  delay(4000);
   digitalWrite(PUMP, HIGH);
-  delay(1000);
-  digitalWrite(PUMP, LOW);
-  delay(1000);
-  digitalWrite(PUMP, HIGH);
+  Serial.println(" ------- Water Off ------- ");
 }

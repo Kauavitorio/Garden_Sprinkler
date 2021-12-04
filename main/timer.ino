@@ -9,11 +9,22 @@ byte bcdToDec(byte val){
   return( (val/16*10) + (val%16) );
 }
 
+extern int mode;
+extern int stage01;
+extern int stage02;
+extern int stage03;
+extern void forcePump();
+extern String CONTROL_PUMP;
+
+char timeMode1[10] = "06:30";
+char timeMode2[10] = "12:00";
+char timeMode3[10] = "21:00";
+
 void initTimer(){
     Wire.begin();
   // set the initial time here:
   // DS3231 seconds, minutes, hours, day, date, month, year
-  //setDS3231time(30,12,19,24,24,11,21);
+  //setDS3231time(30,8,15,4,4,12,21);
 }
 
 void getTimer(){
@@ -61,7 +72,7 @@ void displayTime(){
   readDS3231time(&second, &minute, &hour, &dayOfWeek, &dayOfMonth, &month,
   &year);
   // send it to the serial monitor
-  Serial.print(hour, DEC);
+  /*Serial.print(hour, DEC);
   // convert the byte variable to a decimal number when displayed
   Serial.print(":");
   if (minute<10){
@@ -72,7 +83,29 @@ void displayTime(){
   if (second<10){
     Serial.print("0");
   }
-  Serial.print(second, DEC);
+  Serial.print(second, DEC);*/
+
+  char currentMinute[10];
+  if(minute < 10) sprintf(currentMinute, "%d0", minute);
+  else sprintf(currentMinute, "%d", minute);
+  char currentTime[10];
+  sprintf(currentTime, "%d:%s", hour, currentMinute);
+  Serial.print(currentTime);
+
+  String finalTIme = String(currentTime);
+  if(CONTROL_PUMP != finalTIme){
+    CONTROL_PUMP = finalTIme;
+    if(mode == stage01 && finalTIme == timeMode1) forcePump();
+    else if(mode == stage02 && finalTIme == timeMode2) forcePump();
+    else if(mode == stage03 && finalTIme == timeMode3) forcePump();
+  }
+
+
+
+
+  
+  Serial.print(":");
+  Serial.print(second);
   Serial.print(" ");
   Serial.print(dayOfMonth, DEC);
   Serial.print("/");
