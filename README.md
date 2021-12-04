@@ -11,4 +11,4 @@ Garden sprinkler is a project to be implemented in a garden that requires a dail
 
 ## License
 
-This project is licensed under the GPL-3.0 License - see the [LICENSE.md](https://github.com/Kauavitorio/Squash_App/blob/main/LICENSE) file for details
+This project is licensed under the GPL-3.0 License - see the [LICENSE.md](https://github.com/Kauavitorio/Garden_Sprinkler/blob/main/LICENSE) file for details
